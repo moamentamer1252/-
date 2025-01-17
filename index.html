@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غِذَاء الرُّوحِ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Amiri', serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            background-color: #2e5c6e;
+            color: #fff;
+            padding: 20px;
+        }
+        h1 {
+            color:azure;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0 20px;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .mood-box {
+            background-color: #eef4f3;
+            color: #2e5c6e;
+            border-radius: 25px;
+            border: 2px solid #2e5c6e9d;
+            margin: 10px;
+            padding: 10px;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .mood-box:hover {
+            background-color: #2e5c6e;
+            color: #fff;
+        }
+        .verse {
+            display: none;
+            font-size: 1.5rem;
+            color: #2e5c6e;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>غِذَاء الرُّوحِ</h1>
+        <p>اختر حالتك المزاجية لتحصل على رسالة مخصصة من القرآن الكريم</p>
+    </header>
+    <main>
+        <div class="mood-box" data-mood="خائف">خائف</div>
+        <div class="mood-box" data-mood="حزين">حزين</div>
+        <div class="mood-box" data-mood="سعيد">سعيد</div>
+        <div class="mood-box" data-mood="قلق">قلق</div>
+        <div class="mood-box" data-mood="متوتر">متوتر</div>
+        <div class="mood-box" data-mood="مرتاح">مرتاح</div>
+        <div class="mood-box" data-mood="محبط">محبط</div>
+        <div class="mood-box" data-mood="شهوة">شهوة</div>
+        <div class="mood-box" data-mood="مرهق">مرهق</div>
+    </main>
+    <script>
+        const moodBoxes = document.querySelectorAll('.mood-box');
+        const prayers = {
+            'خائف': [
+                'إِنَّ اللَّهَ مَعَكُمْ',
+                'فَاللَّهُ خَيْرٌ حَافِظًا وَهُوَ أَرْحَمُ الرَّاحِمِينَ',
+                'الَّذِينَ آمَنُوا وَكَانُوا يَتَّقُونَ',
+                'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ',
+                'فَلا تَحْزَنُوا إِنَّ اللَّهَ مَعَنَا',
+                'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+                'إِنَّ رَبَّكَ بَصِيرٌ بِالْعِبَادِ'
+            ],
+            'حزين': [
+                'لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا',
+                'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+                'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا',
+                'وَقُل رَّبُّنَا لَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ',
+                'وَأُفَوِّضُ أَمْرِي إِلَى اللَّهِ إِنَّ اللَّهَ بَصِيرٌ بِالْعِبَادِ',
+                'إِنَّ مَعَ الْعُسْرِ يُسْرًا'
+            ],
+            'سعيد': [
+                'فَبِذَلِكَ فَلْيَفْرَحُوا هُوَ خَيْرٌ مِّمَّا يَجْمَعُونَ',
+                'وَقَالُوا الْحَمْدُ لِلَّهِ الَّذِي أَذْهَبَ عَنَّا الْحَزَنَ',
+                'وَمَنْ يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا',
+                'وَمَن يَتَّقِ اللَّهَ يُكَفِّرْ عَنْهُ سَيِّئَاتِهِ وَيُعَظِّمْ لَهُ أَجْرًا',
+                'إِنَّ اللَّـهَ يُحِبُّ الْمُحْسِنِينَ'
+            ],
+            'قلق': [
+                'وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ',
+                'وَأَحْسِنُوا إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ',
+                'إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوْا وَالَّذِينَ هُمْ مُحْسِنُونَ',
+                'وَقَالَ رَبُّكُمْ ادْعُونِي أَسْتَجِبْ لَكُمْ',
+                'إِنَّ رَبَّكُمْ اللَّهُ الَّذِي خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ فِي سِتَّةِ أَيَّامٍ'
+            ],
+            'متوتر': [
+                'وَاصْبِرْ وَمَا صَبْرُكَ إِلَّا بِاللَّهِ وَلا تَحْزَنْ عَلَيْهِمْ وَلا تَكُ فِي ضَيْقٍ مِّمَّا يَمْكُرُونَ',
+                'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا',
+                'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
+                'وَمَن يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا'
+            ],
+            'مرتاح': [
+                'الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۚ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
+                'وَمَن يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا وَيُكَفِّرْ عَنْهُ سَيِّئَاتِهِ',
+                'فَذُوقُوا بِمَا نَسِيتُمْ لِقَاءَ يَوْمِكُمْ إِنَّا نَسِينَاكُمْ',
+                'فَذُوقُوا بِمَا كُنتُمْ تَكْفُرُونَ'
+            ],
+            'محبط': [
+                'لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّهُ لَا يَيْأَسُ مِن رَّوْحِ اللَّهِ إِلَّا الْقَوْمُ الْكَافِرُونَ',
+                'وَلَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ إِنَّهُ غَفُورٌ رَحِيمٌ',
+                'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ'
+            ],
+            'شهوة': [
+                'وَلْيَسْتَعْفِفِ الَّذِينَ لَا يَجِدُونَ نِكَاحًا حَتَّى يُغْنِيَهُمُ اللَّهُ مِن فَضْلِهِ',
+                'وَإِنِّي لَغَفَّارٌ لِمَن تَابَ وَآمَنَ وَعَمِلَ صَارِحًا',
+                'إِنَّ رَبَّكَ عَلَىٰكُلِّ شَيْءٍ حَفِيظٌ',
+                'وَالَّذِينَ هُمْ لِفُرُوجِهِمْ حَافِظُون',
+                'قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ وَيَحْفَظُوا فُرُوجَهُمْ ذَٰلِكَ أَزْكَىٰ لَهُمْ إِنَّ اللَّهَ خَبِيرٌ بِمَا يَصْنَعُونَ',
+            ],
+            'مرهق': [
+                'وَجَعَلْنَا نَوْمَكُمْ سُبَاتًا',
+                'يُحْيِي وَيُمِيتُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ',
+                'يَا بُنَيَّ لَا تُشْرِكْ بِاللَّهِ إِنَّ الشِّرْكَ لَظُلْمٌ عَظِيمٌ',
+                'نَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنكَرِ',
+            ]
+        };
+
+        moodBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                const selectedMood = box.dataset.mood;
+                const verseElement = document.createElement('div');
+                verseElement.classList.add('verse');
+
+                if (prayers[selectedMood]) {
+                    const selectedVerses = prayers[selectedMood];
+                    const randomVerse = selectedVerses[Math.floor(Math.random() * selectedVerses.length)];
+                    verseElement.textContent = randomVerse;
+                }
+
+                const existingVerse = box.nextElementSibling;
+                if (existingVerse && existingVerse.classList.contains('verse')) {
+                    existingVerse.remove();
+                }
+
+                if (prayers[selectedMood]) {
+                    box.insertAdjacentElement('afterend', verseElement);
+                    verseElement.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
